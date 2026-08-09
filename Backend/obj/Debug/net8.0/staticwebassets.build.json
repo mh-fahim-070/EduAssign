@@ -1,1 +1,11 @@
-{"Version":1,"Hash":"ZVWhTb+wdSjGZIZjhZEfiJ2HaPlUS/IqKiNj9jRTGXQ=","Source":"AssignmentSystem","BasePath":"_content/AssignmentSystem","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "m6ThXYTaCFWH+C1K8IdDZRxwm1PJlabGCBYQGFjuC9s=",
+  "Source": "AssignmentSystem",
+  "BasePath": "_content/AssignmentSystem",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

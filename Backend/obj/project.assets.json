@@ -3672,19 +3672,19 @@
     ]
   },
   "packageFolders": {
-    "/root/.nuget/packages/": {}
+    "/home/user/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/app/applet/Backend/AssignmentSystem.csproj",
+      "projectUniqueName": "/home/user/Desktop/EduAssign/Backend/AssignmentSystem.csproj",
       "projectName": "AssignmentSystem",
-      "projectPath": "/app/applet/Backend/AssignmentSystem.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/app/applet/Backend/obj/",
+      "projectPath": "/home/user/Desktop/EduAssign/Backend/AssignmentSystem.csproj",
+      "packagesPath": "/home/user/.nuget/packages/",
+      "outputPath": "/home/user/Desktop/EduAssign/Backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/root/.nuget/NuGet/NuGet.Config"
+        "/home/user/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3702,13 +3702,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -3774,7 +3768,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/root/.dotnet/sdk/9.0.316/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.129/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
