@@ -1,0 +1,6 @@
+{
+  "name": "Assignment & Submission Management System",
+  "description": "Role-based school/college assignment and submission management system with Admin, Teacher, and Student roles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
