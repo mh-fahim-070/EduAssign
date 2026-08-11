@@ -54,6 +54,17 @@ export const db = dbInstance;
 export async function initializeDatabase() {
   try {
     console.log('[DB] Ensuring database tables exist...');
+    if (rawClient.query) {
+      const result = await rawClient.query(`
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'submissions'
+        ORDER BY ordinal_position;
+      `);
+
+      console.log('[DB] submissions columns:', result.rows);
+    }
+
     
     const tableQueries = [
       `CREATE TABLE IF NOT EXISTS users (

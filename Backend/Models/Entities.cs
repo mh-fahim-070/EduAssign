@@ -151,28 +151,35 @@ namespace AssignmentSystem.Models
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
     }
 
-    public class Submission : BaseEntity
+    public class Submission 
     {
-        [Required]
-        public string AssignmentId { get; set; } = string.Empty;
-        [ForeignKey(nameof(AssignmentId))]
-        public Assignment Assignment { get; set; } = null!;
+        [Key]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        [Required]
-        public string StudentId { get; set; } = string.Empty;
-        [ForeignKey(nameof(StudentId))]
-        public User Student { get; set; } = null!;
+    [Required]
+    public string AssignmentId { get; set; } = string.Empty;
 
-        [Required]
-        public string Content { get; set; } = string.Empty;
+    [ForeignKey(nameof(AssignmentId))]
+    public Assignment Assignment { get; set; } = null!;
 
-        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
+    [Required]
+    public string StudentId { get; set; } = string.Empty;
 
-        public int? Marks { get; set; }
+    [ForeignKey(nameof(StudentId))]
+    public User Student { get; set; } = null!;
 
-        public string? Feedback { get; set; }
+    [Required]
+    public string Content { get; set; } = string.Empty;
 
-        [Required]
-        public SubmissionStatus Status { get; set; } = SubmissionStatus.Submitted;
+    public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
+
+    public int? Marks { get; set; }
+
+    public string? Feedback { get; set; }
+
+    [Required]
+    public SubmissionStatus Status { get; set; } = SubmissionStatus.Submitted;
+
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }
