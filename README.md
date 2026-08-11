@@ -70,10 +70,6 @@ The server will automatically forward all `/api/*` requests directly to the C# B
 
 ## 4. Testing C# Backend APIs Directly (cURL & Swagger)
 
-### Interactive Swagger UI
-When the C# backend is running, you can access the interactive Swagger OpenAPI UI at:
-* **http://localhost:5005/swagger**
-
 ### cURL Workflow Examples
 
 #### 1. Authenticate & Obtain JWT Token
