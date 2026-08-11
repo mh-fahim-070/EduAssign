@@ -8,7 +8,19 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args
+});
+
+// Disable configuration file watchers in production/container environments
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Configuration.Sources
+        .OfType<Microsoft.Extensions.Configuration.Json.JsonConfigurationSource>()
+        .ToList()
+        .ForEach(source => source.ReloadOnChange = false);
+}
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.Limits.MinRequestBodyDataRate = null;
