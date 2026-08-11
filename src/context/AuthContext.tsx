@@ -48,7 +48,8 @@ const normalizeUserRole = (role: unknown): UserRole => {
   if (
     role === 1 ||
     role === '1' ||
-    role === 'Admin'
+    role === 'Admin' || 
+    role === "Admin"
   ) {
     return 'Admin';
   }
@@ -56,7 +57,8 @@ const normalizeUserRole = (role: unknown): UserRole => {
   if (
     role === 2 ||
     role === '2' ||
-    role === 'Teacher'
+    role === 'Teacher' ||
+    role === "Teacher" 
   ) {
     return 'Teacher';
   }
@@ -64,7 +66,8 @@ const normalizeUserRole = (role: unknown): UserRole => {
   if (
     role === 3 ||
     role === '3' ||
-    role === 'Student'
+    role === 'Student' || 
+    role === "Student"
   ) {
     return 'Student';
   }

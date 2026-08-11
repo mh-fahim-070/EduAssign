@@ -186,7 +186,7 @@ namespace AssignmentSystem.Controllers
         /// Grade & feedback submission (Teacher or Admin)
         /// </summary>
         [HttpPut("{id}/grade")]
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher")]
         [ProducesResponseType(typeof(ApiResponse<SubmissionDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GradeSubmission(string id, [FromBody] GradeSubmissionDto dto)
         {

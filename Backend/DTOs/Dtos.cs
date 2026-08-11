@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AssignmentSystem.Models;
+// using System.ComponentModel.DataAnnotations;
 
 namespace AssignmentSystem.DTOs
 {
@@ -97,6 +98,16 @@ namespace AssignmentSystem.DTOs
 
         public AssignmentStatus Status { get; set; } = AssignmentStatus.Draft;
     }
+//     public class UpdateAssignmentStatusDto
+//    {
+//     [Required]
+//     public string Id { get; set; } = string.Empty;
+
+//     [Required]
+//     public AssignmentStatus Status { get; set; }
+//     }   
+ 
+
 
     public class UpdateAssignmentDto
     {
