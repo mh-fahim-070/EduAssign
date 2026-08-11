@@ -109,14 +109,14 @@ curl -s -X GET http://localhost:5005/api/subjects \
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                                BACKEND API LAYER                                  │
 │                                                                                   │
-│  Option A: ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
+│   ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
 │  - Controllers: `AuthController.cs`, `AdminController.cs`, `TeacherController.cs`,│
 │    `StudentController.cs`, `SubjectController.cs`                                 │
 │  - RESTful API design with DTO request validation, error handling & logging       │
 │  - Swashbuckle Swagger UI configuration & JWT Bearer authorization scheme         │
 │  - ASP.NET Core 8.0 Web API architecture                                          │
 │                                                                                   │
-│                       │
+│                       
 └─────────────────────────────────────────┬─────────────────────────────────────────┘
                                           │  SQL Queries / ORM Abstraction
                                           ▼
