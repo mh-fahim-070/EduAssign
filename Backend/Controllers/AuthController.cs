@@ -144,49 +144,69 @@ namespace AssignmentSystem.Controllers
             }));
         }
 
-        /// <summary>
-        /// Register a new account
-        /// </summary>
-        [HttpPost("register")]
-        [ProducesResponseType(typeof(ApiResponse<AuthResponseDto>), StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ApiResponse<object>.ErrorResult("Validation failed"));
+       /// <summary>
+/// Register a new account
+/// Only Admin users can register new accounts.
+/// </summary>
+[Authorize(Roles = "Admin")]
+[HttpPost("register")]
+[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
+[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+[ProducesResponseType(StatusCodes.Status403Forbidden)]
+public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
+{
+    if (!ModelState.IsValid)
+        return BadRequest(ApiResponse.ErrorResult("Validation failed"));
 
-            var existing = await _db.Users.AnyAsync(u => u.Email.ToLower() == dto.Email.ToLower());
-            if (existing)
-                return BadRequest(ApiResponse<object>.ErrorResult("An account with this email already exists"));
+    var existing = await _db.Users
+        .AnyAsync(u => u.Email.ToLower() == dto.Email.ToLower());
 
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = dto.Name,
-                Email = dto.Email,
-                PasswordHash = dto.Password, // In production, hash with BCrypt / Argon2
-                Role = dto.Role,
-                CreatedAt = DateTime.UtcNow
-            };
+    if (existing)
+        return BadRequest(
+            ApiResponse<object>.ErrorResult(
+                "An account with this email already exists"
+            )
+        );
 
-            _db.Users.Add(user);
-            await _db.SaveChangesAsync();
+    var user = new User
+    {
+        Id = Guid.NewGuid().ToString(),
+        Name = dto.Name,
+        Email = dto.Email,
 
-            var token = GenerateJwtToken(user);
-            var userDto = new UserDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Role = user.Role,
-                CreatedAt = user.CreatedAt
-            };
+        // IMPORTANT: hash the password
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
 
-            return Created("", ApiResponse<AuthResponseDto>.SuccessResult(new AuthResponseDto
+        Role = dto.Role,
+        CreatedAt = DateTime.UtcNow
+    };
+
+    _db.Users.Add(user);
+    await _db.SaveChangesAsync();
+
+    var token = GenerateJwtToken(user);
+
+    var userDto = new UserDto
+    {
+        Id = user.Id,
+        Name = user.Name,
+        Email = user.Email,
+        Role = user.Role,
+        CreatedAt = user.CreatedAt
+    };
+
+    return Created(
+        "",
+        ApiResponse<AuthResponseDto>.SuccessResult(
+            new AuthResponseDto
             {
                 Token = token,
                 User = userDto
-            }, "Account registered successfully"));
-        }
+            },
+            "Account registered successfully"
+        )
+    );
+}
 
         private string GenerateJwtToken(User user)
         {
