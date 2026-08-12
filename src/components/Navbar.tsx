@@ -9,7 +9,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
-  const { user, logout, quickSwitchRole } = useAuth();
+  const { user, logout } = useAuth();
 
   const getRoleIcon = (role?: UserRole) => {
     switch (role) {
@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             </div>
           </div>
 
-          {/* Quick Role Switcher Pills */}
+          {/* Quick Role Switcher Pills
           <div className="flex items-center bg-slate-100/80 p-1 rounded-xl border border-slate-200/80 space-x-1 shrink-0">
             <span className="text-xs font-semibold text-slate-400 px-2 hidden sm:inline">Role:</span>
             <button
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             >
               Student
             </button>
-          </div>
+          </div> */}
 
           {/* Actions & User Info */}
           <div className="flex items-center space-x-3 shrink-0">
