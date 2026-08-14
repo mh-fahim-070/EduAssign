@@ -11,23 +11,43 @@ The system streamlines academic workflows across three core user personas:
 
 ---
 
-## 2. Test Accounts & Instant Login Credentials
+## 2. Default Test Account Credentials
 
-For quick testing and evaluation, the portal includes an **"Instant Test Login"** modal button on the sign-in page, as well as role-filtered manual authentication:
+The system supports three distinct user roles (**Admin**, **Teacher**, and **Student**). For quick evaluation, you can click the **"Instant Test Login"** button on the sign-in screen, or manually log in using the credentials below:
 
-| Role | Default Email Address | Default Password | Access Privileges |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@school.edu` | `Admin123!` | Full admin panel, user management, system settings, global metrics |
-| **Teacher** | `john.doe@school.edu` | `Teacher123!` | Assignment authoring, class gradebooks, student evaluation & scoring |
-| **Student** | `alex.jones@student.edu` | `Student123!` | Student dashboard, assignment response submission, grade tracking |
+### 🔑 Default Test Account Credentials
 
-**Role-Enforced Manual Authentication**: On the manual sign-in form, selecting the **Admin**, **Teacher**, or **Student** role tab strictly enforces role verification. Logging in under a specific role tab requires credentials matching that exact role persona.
+| User Role | Full Name | Email Address | Password | Permissions & Dashboard Access |
+| :--- | :--- | :--- | :--- | :--- |
+| **Admin** | System Administrator | `admin@school.edu` | `Admin123!` | System settings, user account creation, class & subject mapping, global metrics |
+| **Teacher** | Prof. John Doe | `john.doe@school.edu` | `Teacher123!` | Assignment authoring (Draft/Publish), setting deadlines & max marks, grading & feedback |
+| **Student** | Alex Jones | `alex.jones@student.edu` | `Student123!` | Student dashboard, viewing assignments & deadlines, submitting solutions, tracking grades |
 
 ---
 
-## 3. How to Run the Project using C# (.NET) Backend
+### 📋 Additional Seeded Test Accounts
 
-The project supports running with a **native C# ASP.NET Core Web API** backend (`Backend/AssignmentSystem.csproj`).
+| Role | Full Name | Email Address | Password |
+| :--- | :--- | :--- | :--- |
+| **Admin** | Principal Catherine | `principal@school.edu` | `Admin123!` |
+| **Teacher** | Sarah Smith | `sarah.smith@school.edu` | `Teacher123!` |
+| **Teacher** | Robert Johnson | `robert.johnson@school.edu` | `Teacher123!` |
+| **Student** | Emily Davis | `emily.davis@student.edu` | `Student123!` |
+| **Student** | Michael Brown | `michael.brown@student.edu` | `Student123!` |
+| **Student** | Jessica Wilson | `jessica.wilson@student.edu` | `Student123!` |
+
+> **Note on Role-Enforced Sign In**: On the login page, select the **Admin**, **Teacher**, or **Student** tab corresponding to the account role before signing in.
+
+---
+
+## 3. Live Deployed Backend & How to Run
+
+### 🌐 Live Deployed C# Backend Server
+The C# (.NET) Web API backend is deployed and running live on Render:
+* **Live Backend API Base URL**: `https://eduassign-1.onrender.com/`
+* **Live Interactive Swagger UI**: `https://eduassign-1.onrender.com/swagger`
+
+---
 
 ### Step 1: Configure Environment Variables (`.env`)
 Create or edit your `.env` file in the project root directory:
@@ -35,14 +55,16 @@ Create or edit your `.env` file in the project root directory:
 ```env
 # Enable C# .NET Backend Proxy
 USE_DOTNET_BACKEND=true
-DOTNET_BACKEND_URL=http://localhost:5005
+
+# Connect to Live Deployed Render Backend (or http://localhost:5005 for local backend)
+DOTNET_BACKEND_URL=https://eduassign-1.onrender.com
 
 # PostgreSQL Connection String (e.g., Neon, Cloud SQL, or Local PostgreSQL)
 POSTGRES_URL=postgresql://user:password@host:5432/neondb?sslmode=require
 ```
 
-### Step 2: Run the C# Backend Server
-Open a terminal, navigate to the `Backend` directory, and start the ASP.NET Core server:
+### Step 2: Run the C# Backend Server (Local Development)
+To run the backend locally instead of using the live Render server:
 
 ```bash
 cd Backend
@@ -50,31 +72,38 @@ dotnet build
 dotnet run --urls "http://localhost:5005"
 ```
 
-The C# backend will automatically:
-1. Connect to PostgreSQL using **Entity Framework Core**.
-2. Run database migrations / `EnsureCreatedAsync()` to create all necessary tables (`users`, `subjects`, `classes`, `assignments`, `submissions`, `system_settings`, etc.).
-3. Seed default admin, teacher, and student accounts along with initial subject and class records.
-4. Launch the live C# Web API service on `http://localhost:5005`.
+When running locally, set `DOTNET_BACKEND_URL=http://localhost:5005` in your `.env`.
+
+The C# backend automatically:
+1. Connects to PostgreSQL using **Entity Framework Core**.
+2. Runs database migrations / `EnsureCreatedAsync()` to create all necessary tables (`users`, `subjects`, `classes`, `assignments`, `submissions`, `system_settings`, etc.).
+3. Seeds default admin, teacher, and student accounts along with initial subject and class records.
+4. Launches the live C# Web API service.
 
 ### Step 3: Run the Frontend & Node Proxy
-In a second terminal window at the project root:
+In a terminal window at the project root:
 
 ```bash
-npm install (if not)
+npm install
 npm run dev
 ```
 
-The server will automatically forward all `/api/*` requests directly to the C# Backend (`http://localhost:5005`).
+The frontend server will automatically proxy all `/api/*` and `/swagger` requests directly to the C# Backend (`https://eduassign-1.onrender.com` or local `http://localhost:5005`).
 
 ---
 
 ## 4. Testing C# Backend APIs Directly (cURL & Swagger)
 
+### Interactive Swagger UI
+You can access the interactive Swagger OpenAPI UI directly on the live backend or locally:
+* **Live Render Swagger UI**: [https://eduassign-1.onrender.com/swagger](https://eduassign-1.onrender.com/swagger)
+* **Local Backend Swagger UI**: [http://localhost:5005/swagger](http://localhost:5005/swagger)
+
 ### cURL Workflow Examples
 
-#### 1. Authenticate & Obtain JWT Token
+#### 1. Authenticate & Obtain JWT Token (Live Render Server)
 ```bash
-curl -s -X POST http://localhost:5005/api/auth/login \
+curl -s -X POST https://eduassign-1.onrender.com/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@school.edu","password":"Admin123!"}'
 ```
@@ -82,13 +111,13 @@ curl -s -X POST http://localhost:5005/api/auth/login \
 #### 2. Fetch All Subjects using Authorized JWT Token
 ```bash
 # Save JWT token into environment variable
-TOKEN=$(curl -s -X POST http://localhost:5005/api/auth/login \
+TOKEN=$(curl -s -X POST https://eduassign-1.onrender.com/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@school.edu","password":"Admin123!"}' \
   | python3 -c "import sys, json; print(json.load(sys.stdin)['data']['token'])")
 
 # Query Subjects endpoint with Bearer token
-curl -s -X GET http://localhost:5005/api/subjects \
+curl -s -X GET https://eduassign-1.onrender.com/api/subjects \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -109,14 +138,14 @@ curl -s -X GET http://localhost:5005/api/subjects \
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                                BACKEND API LAYER                                  │
 │                                                                                   │
-│   ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
+│  Option A: ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
 │  - Controllers: `AuthController.cs`, `AdminController.cs`, `TeacherController.cs`,│
 │    `StudentController.cs`, `SubjectController.cs`                                 │
 │  - RESTful API design with DTO request validation, error handling & logging       │
 │  - Swashbuckle Swagger UI configuration & JWT Bearer authorization scheme         │
 │  - ASP.NET Core 8.0 Web API architecture                                          │
 │                                                                                   │
-│                       
+│                       │
 └─────────────────────────────────────────┬─────────────────────────────────────────┘
                                           │  SQL Queries / ORM Abstraction
                                           ▼
