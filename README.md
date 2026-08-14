@@ -80,7 +80,7 @@ The C# backend automatically:
 3. Seeds default admin, teacher, and student accounts along with initial subject and class records.
 4. Launches the live C# Web API service.
 
-### Step 3: Run the Frontend & Node Proxy
+### Step 3: Run the Frontend 
 In a terminal window at the project root:
 
 ```bash
@@ -88,7 +88,7 @@ npm install
 npm run dev
 ```
 
-The frontend server will automatically proxy all `/api/*` and `/swagger` requests directly to the C# Backend (`https://eduassign-1.onrender.com` or local `http://localhost:5005`).
+The frontend server will automatically  all `/api/*` and `/swagger` requests directly to the C# Backend (`https://eduassign-1.onrender.com` or local `http://localhost:5005`).
 
 ---
 
@@ -140,7 +140,7 @@ curl -s -X GET https://eduassign-1.onrender.com/api/subjects \
 │  - Swashbuckle Swagger UI configuration & JWT Bearer authorization scheme         │
 │  - ASP.NET Core 8.0 Web API architecture                                          │
 │                                                                                   │
-│                       │
+│                       
 └─────────────────────────────────────────┬─────────────────────────────────────────┘
                                           │  SQL Queries / ORM Abstraction
                                           ▼
@@ -166,7 +166,7 @@ curl -s -X GET https://eduassign-1.onrender.com/api/subjects \
 
 ### ⚙️ Backend Architecture & Web APIs
 
-1. **ASP.NET Core 8.0 Web API in C# (`Backend/`)**:
+ **ASP.NET Core 8.0 Web API in C# (`Backend/`)**:
    * **Framework**: **ASP.NET Core Web API** built with **C#** and .NET 8.
    * **RESTful Controllers**: Strongly typed C# controllers (`AuthController.cs`, `AdminController.cs`, `TeacherController.cs`, `StudentController.cs`, `SubjectController.cs`).
    * **Validation**: Model validation using C# Data Annotations and DTO records.
@@ -264,18 +264,5 @@ Application-level configurations managed by Administrators.
 
 ---
 
-## 9. Local Development & Testing
 
-```bash
-# Install node packages
-npm install
-
-# Run TypeScript Linter & Type Check
-npm run lint
-
-# Run Automated Test Suite
-npm run test
-
-# Build Applet
-npm run build
 ```
