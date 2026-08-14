@@ -133,7 +133,7 @@ curl -s -X GET https://eduassign-1.onrender.com/api/subjects \
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                                BACKEND API LAYER                                  │
 │                                                                                   │
-│  Option A: ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
+│  ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
 │  - Controllers: `AuthController.cs`, `AdminController.cs`, `TeacherController.cs`,│
 │    `StudentController.cs`, `SubjectController.cs`                                 │
 │  - RESTful API design with DTO request validation, error handling & logging       │

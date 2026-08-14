@@ -148,25 +148,42 @@ namespace AssignmentSystem.Controllers
 /// Register a new account
 /// Only Admin users can register new accounts.
 /// </summary>
+/// <summary>
+/// Register a new account
+/// Only Admin users can register new accounts.
+/// </summary>
 [Authorize(Roles = "Admin")]
 [HttpPost("register")]
-[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
+[ProducesResponseType(
+    typeof(ApiResponse<AuthResponseDto>),
+    StatusCodes.Status201Created
+)]
+[ProducesResponseType(
+    typeof(ApiResponse<object>),
+    StatusCodes.Status400BadRequest
+)]
 [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 [ProducesResponseType(StatusCodes.Status403Forbidden)]
 public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
 {
     if (!ModelState.IsValid)
-        return BadRequest(ApiResponse.ErrorResult("Validation failed"));
+    {
+        return BadRequest(
+            ApiResponse<object>.ErrorResult("Validation failed")
+        );
+    }
 
     var existing = await _db.Users
         .AnyAsync(u => u.Email.ToLower() == dto.Email.ToLower());
 
     if (existing)
+    {
         return BadRequest(
             ApiResponse<object>.ErrorResult(
                 "An account with this email already exists"
             )
         );
+    }
 
     var user = new User
     {
@@ -174,7 +191,7 @@ public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
         Name = dto.Name,
         Email = dto.Email,
 
-        // IMPORTANT: hash the password
+        // Hash password before storing it
         PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
 
         Role = dto.Role,
@@ -207,7 +224,6 @@ public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
         )
     );
 }
-
         private string GenerateJwtToken(User user)
         {
             var jwtSettings = _config.GetSection("JwtSettings");
