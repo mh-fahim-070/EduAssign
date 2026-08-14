@@ -11,17 +11,32 @@ The system streamlines academic workflows across three core user personas:
 
 ---
 
-## 2. Test Accounts & Instant Login Credentials
+## 2. Default Test Account Credentials
 
-For quick testing and evaluation, the portal includes an **"Instant Test Login"** modal button on the sign-in page, as well as role-filtered manual authentication:
+The system supports three distinct user roles (**Admin**, **Teacher**, and **Student**). For quick evaluation, you can click the **"Instant Test Login"** button on the sign-in screen, or manually log in using the credentials below:
 
-| Role | Default Email Address | Default Password | Access Privileges |
+### 🔑 Default Test Account Credentials
+
+| User Role | Full Name | Email Address | Password | Permissions & Dashboard Access |
+| :--- | :--- | :--- | :--- | :--- |
+| **Admin** | System Administrator | `admin@school.edu` | `Admin123!` | System settings, user account creation, class & subject mapping, global metrics |
+| **Teacher** | Prof. John Doe | `john.doe@school.edu` | `Teacher123!` | Assignment authoring (Draft/Publish), setting deadlines & max marks, grading & feedback |
+| **Student** | Alex Jones | `alex.jones@student.edu` | `Student123!` | Student dashboard, viewing assignments & deadlines, submitting solutions, tracking grades |
+
+---
+
+### 📋 Additional Seeded Test Accounts
+
+| Role | Full Name | Email Address | Password |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@school.edu` | `Admin123!` | Full admin panel, user management, system settings, global metrics |
-| **Teacher** | `john.doe@school.edu` | `Teacher123!` | Assignment authoring, class gradebooks, student evaluation & scoring |
-| **Student** | `alex.jones@student.edu` | `Student123!` | Student dashboard, assignment response submission, grade tracking |
+| **Admin** | Principal Catherine | `principal@school.edu` | `Admin123!` |
+| **Teacher** | Sarah Smith | `sarah.smith@school.edu` | `Teacher123!` |
+| **Teacher** | Robert Johnson | `robert.johnson@school.edu` | `Teacher123!` |
+| **Student** | Emily Davis | `emily.davis@student.edu` | `Student123!` |
+| **Student** | Michael Brown | `michael.brown@student.edu` | `Student123!` |
+| **Student** | Jessica Wilson | `jessica.wilson@student.edu` | `Student123!` |
 
-**Role-Enforced Manual Authentication**: On the manual sign-in form, selecting the **Admin**, **Teacher**, or **Student** role tab strictly enforces role verification. Logging in under a specific role tab requires credentials matching that exact role persona.
+> **Note on Role-Enforced Sign In**: On the login page, select the **Admin**, **Teacher**, or **Student** tab corresponding to the account role before signing in.
 
 ---
 
@@ -70,6 +85,10 @@ The server will automatically forward all `/api/*` requests directly to the C# B
 
 ## 4. Testing C# Backend APIs Directly (cURL & Swagger)
 
+### Interactive Swagger UI
+When the C# backend is running, you can access the interactive Swagger OpenAPI UI at:
+* **http://localhost:5005/swagger**
+
 ### cURL Workflow Examples
 
 #### 1. Authenticate & Obtain JWT Token
@@ -109,14 +128,14 @@ curl -s -X GET http://localhost:5005/api/subjects \
 ┌───────────────────────────────────────────────────────────────────────────────────┐
 │                                BACKEND API LAYER                                  │
 │                                                                                   │
-│   ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
+│  Option A: ASP.NET Core Web API in C# (`Backend/` Enterprise Solution)            │
 │  - Controllers: `AuthController.cs`, `AdminController.cs`, `TeacherController.cs`,│
 │    `StudentController.cs`, `SubjectController.cs`                                 │
 │  - RESTful API design with DTO request validation, error handling & logging       │
 │  - Swashbuckle Swagger UI configuration & JWT Bearer authorization scheme         │
 │  - ASP.NET Core 8.0 Web API architecture                                          │
 │                                                                                   │
-│                       
+│                       │
 └─────────────────────────────────────────┬─────────────────────────────────────────┘
                                           │  SQL Queries / ORM Abstraction
                                           ▼
