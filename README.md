@@ -94,11 +94,6 @@ The frontend server will automatically proxy all `/api/*` and `/swagger` request
 
 ## 4. Testing C# Backend APIs Directly (cURL & Swagger)
 
-### Interactive Swagger UI
-You can access the interactive Swagger OpenAPI UI directly on the live backend or locally:
-* **Live Render Swagger UI**: [https://eduassign-1.onrender.com/swagger](https://eduassign-1.onrender.com/swagger)
-* **Local Backend Swagger UI**: [http://localhost:5005/swagger](http://localhost:5005/swagger)
-
 ### cURL Workflow Examples
 
 #### 1. Authenticate & Obtain JWT Token (Live Render Server)
